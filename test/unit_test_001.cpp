@@ -25,7 +25,7 @@
 
 
 #include "Arduino.h"
-#include "MAX7219.h"
+#include "MATRIX7219.h"
 
 
 unittest_setup()
