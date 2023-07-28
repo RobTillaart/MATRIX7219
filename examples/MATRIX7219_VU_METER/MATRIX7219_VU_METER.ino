@@ -7,12 +7,12 @@
 
 #include "MATRIX7219.h"
 
-uint8_t data   = 2;
-uint8_t select = 3;
-uint8_t clock  = 4;
-uint8_t count  = 1;
+uint8_t dataPin   = 2;
+uint8_t selectPin = 3;
+uint8_t clockPin  = 4;
+uint8_t count     = 1;
 
-MATRIX7219 mx(data, select, clock, count);
+MATRIX7219 mx(dataPin, selectPin, clockPin, count);
 
 
 void setup()
@@ -24,8 +24,8 @@ void setup()
   Serial.println();
 
   mx.begin();
-  mx.clear(1);
-  mx.setBrightness(3, 1);
+  mx.clear();
+  mx.setBrightness(3);
   mx.setReverse(true);
 }
 

@@ -24,8 +24,8 @@ public:
 
 
   //  bn = 0..15
-  void     setBrightness(uint8_t bn, uint8_t matrix);
-  void     clear(uint8_t matrix);
+  void     setBrightness(uint8_t bn);
+  void     clear();
 
   //  row   = 1..8
   //  value = 0..255

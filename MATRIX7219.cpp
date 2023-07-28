@@ -13,8 +13,6 @@
 #define MATRIX7219_BRIGHTNESS      0x0A
 #define MATRIX7219_SCAN_LIMIT      0x0B
 #define MATRIX7219_SHUT_DOWN       0x0C
-#define MATRIX7219_D               0x0D
-#define MATRIX7219_E               0x0E
 #define MATRIX7219_DISPLAY_TEST    0x0F
 
 
@@ -54,7 +52,7 @@ void MATRIX7219::begin()
   {
     digitalWrite(_selectPin, LOW);
     _write(MATRIX7219_DECODE_MODE);
-    _write(0x00);
+    _write(0x00);                       //  No decode for digits 7–0
     digitalWrite(_selectPin, HIGH);
   }
   for (int m = 0; m < _matrices; m++)
@@ -68,30 +66,36 @@ void MATRIX7219::begin()
   {
     digitalWrite(_selectPin, LOW);
     _write(MATRIX7219_DISPLAY_TEST);
-    _write(0x00);
+    _write(0x00);                       //  normal mode
     digitalWrite(_selectPin, HIGH);
   }
 }
 
 
-void MATRIX7219::setBrightness(uint8_t bn, uint8_t matrix)
+void MATRIX7219::setBrightness(uint8_t bn)
 {
   if (bn > 15) bn = 15;
 
   digitalWrite(_selectPin, LOW);
-  _write(0x0a);
-  _write(bn);
+  for (int m = 0; m < _matrices; m++)
+  {
+    _write(MATRIX7219_BRIGHTNESS);
+    _write(bn);
+  }
   digitalWrite(_selectPin, HIGH);
 }
 
 
-void MATRIX7219::clear(uint8_t matrix)
+void MATRIX7219::clear()
 {
   for (uint8_t row = 1; row < 9; row++)
   {
     digitalWrite(_selectPin, LOW);
-    _write(row);
-    _write(0);
+    for (int m = 0; m < _matrices; m++)
+    {
+      _write(row);
+      _write(0);
+    }
     digitalWrite(_selectPin, HIGH);
   }
 }
@@ -100,9 +104,21 @@ void MATRIX7219::clear(uint8_t matrix)
 void MATRIX7219::setRow(uint8_t row, uint8_t value, uint8_t matrix)
 {
   digitalWrite(_selectPin, LOW);
+  for (int m = _matrices; m > matrix; m--)
+  {
+    _write(0);
+    _write(0);
+  }
+  
   _write(row);
   if (_reverse) _write(255 - value);
   else          _write(value);
+  
+  for (int m = matrix-1; m > 0; m--)
+  {
+    _write(0);
+    _write(0);
+  }
   digitalWrite(_selectPin, HIGH);
 }
 

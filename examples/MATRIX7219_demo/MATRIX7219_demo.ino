@@ -7,12 +7,12 @@
 
 #include "MATRIX7219.h"
 
-uint8_t data   = 2;
-uint8_t select = 3;
-uint8_t clock  = 4;
-uint8_t count  = 1;
+uint8_t dataPin   = 2;
+uint8_t selectPin = 3;
+uint8_t clockPin  = 4;
+uint8_t count     = 4;
 
-MATRIX7219 mx(data, select, clock, count);
+MATRIX7219 mx(dataPin, selectPin, clockPin, count);
 
 
 void setup()
@@ -23,32 +23,40 @@ void setup()
   Serial.println(MATRIX7219_LIB_VERSION);
 
   mx.begin();
-  mx.clear(1);
+  mx.clear();
+  mx.setBrightness(3);
   delay(1000);
 
-  Serial.println(mx.getMatrixCount());
+  mx.setRow(1, 1, 1);
+  mx.setRow(3, 3, 2);
+  mx.setRow(4, 5, 3);
+  mx.setRow(5, 7, 4);
+  delay(1000);
 
-  for (int n = 1; n < 9; n++)
-  {
-    mx.setRow(n, random(255), 1);
-  }
-  for (int n = 1; n < 7; n++)
-  {
-    mx.setBrightness(n, 0);
-    delay(100);
-  }
-  mx.setBrightness(3, 0);
-  delay(100);
+
+  //  Serial.println(mx.getMatrixCount());
+  //
+  //  for (int n = 1; n < 9; n++)
+  //  {
+  //    mx.setRow(n, random(255), 1);
+  //  }
+  //  for (int n = 1; n < 7; n++)
+  //  {
+  //    mx.setBrightness(n, 0);
+  //    delay(100);
+  //  }
+  //  mx.setBrightness(3, 0);
+  //  delay(100);
 }
 
 
 void loop()
 {
-  for (int n = 1; n < 9; n++)
-  {
-    mx.setRow(n, random(255), 1);
-    delay(1000);
-  }
+  //  for (int n = 1; n < 9; n++)
+  //  {
+  //    mx.setRow(n, random(255), 1);
+  //    delay(1000);
+  //  }
 }
 
 
