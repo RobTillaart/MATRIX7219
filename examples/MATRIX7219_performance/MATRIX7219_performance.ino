@@ -76,11 +76,10 @@ void loop()
 {
   for (int n = 1; n < 9; n++)
   {
-    mx.setRow(n, 1 << random(7), 1);
+    mx.setRow(n, 1 << random(8), 1);
     delay(10);
   }
 }
 
 
 //  -- END OF FILE --
-

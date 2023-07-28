@@ -40,18 +40,19 @@ Constructor, initializes IO pins and the number of 8x8 matrices on same pins.
 - **void begin()** resets the internals of the connected device.
 - **uint8_t  getMatrixCount()** returns number of matrices set in constructor.
 Convenience function.
-- **void setBrightness(uint8_t bn, uint8_t matrix)** bn = 0..15
-- **void clear(uint8_t matrix)** clear the matrix.
-- **void setRow(uint8_t row, uint8_t value, uint8_t matrix)** set a value to a certain row.
+- **void setBrightness(uint8_t bn)** set brightness bn = 0..15 for all matrices.
+- **void clear()** clear all matrices.
+- **void setRow(uint8_t row, uint8_t value, uint8_t matrix)** set a value to a certain row of a certain matrix.
 
 
-#### Reverse
+#### Invert and reverse
 
-Some 8x8 boards have their LEDS in other orientation. 
-**setReverse(true)** might help to correct layout.
+For adapting the layout if needed.
 
-- **void     setReverse(bool rev)** reverse the output. Default = false.
-- **bool     getReverse()** get current setting.
+- **void setInvert(bool invert)** invert the output. Default = false.
+- **bool getInvert()** get current setting.
+- **void setReverse(bool rev)** reverse the output. Default = false.
+- **bool getReverse()** get current setting.
 
 
 ## Performance 
@@ -73,6 +74,7 @@ Preliminary tests
 #### Must
 
 - improve documentation
+- get build-CI good.
 
 #### Should
 
@@ -82,6 +84,8 @@ Preliminary tests
 - add unit tests
 - create a derived class with a buffer
   - goal is to have **setPixel(x,y)** and **clearPixel(x,y)**
+- reverse from CRC for real reverse
+
 
 #### Could
 

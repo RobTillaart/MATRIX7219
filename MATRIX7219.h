@@ -31,19 +31,23 @@ public:
   //  value = 0..255
   void     setRow(uint8_t row, uint8_t value, uint8_t matrix);
 
-  void     setReverse(bool rev);
+  void     setInvert(bool invert);
+  bool     getInvert();
+  void     setReverse(bool invert);
   bool     getReverse();
 
 private:
 
   void     _write(uint8_t b);
   void     _writeZero();         //  optimized  writing of all 0
+  uint8_t  _reverse8(uint8_t in);
 
   uint8_t  _dataPin;
   uint8_t  _selectPin;
   uint8_t  _clockPin;
   uint8_t  _matrices;
 
+  bool     _invert = false;
   bool     _reverse = false;
 };
 

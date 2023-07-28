@@ -109,17 +109,30 @@ void MATRIX7219::setRow(uint8_t row, uint8_t value, uint8_t matrix)
     _write(0);
     _write(0);
   }
-  
+
   _write(row);
-  if (_reverse) _write(255 - value);
-  else          _write(value);
-  
+  if (_invert)  value = 255 - value;
+  if (_reverse) value = _reverse8(value);
+  _write(value);
+
   for (int m = matrix-1; m > 0; m--)
   {
     _write(0);
     _write(0);
   }
   digitalWrite(_selectPin, HIGH);
+}
+
+
+void MATRIX7219::setInvert(bool invert)
+{
+  _invert = invert;
+}
+
+
+bool MATRIX7219::getInvert()
+{
+  return _invert;
 }
 
 
@@ -141,7 +154,7 @@ bool MATRIX7219::getReverse()
 //
 void MATRIX7219::_write(uint8_t b)
 {
-  for (uint8_t mask = 0x80; mask > 0; mask >>= 1) 
+  for (uint8_t mask = 0x80; mask > 0; mask >>= 1)
   {
     digitalWrite(_clockPin, LOW);
     digitalWrite(_dataPin, (b & mask) > 0);
@@ -149,17 +162,28 @@ void MATRIX7219::_write(uint8_t b)
   }
 }
 
+
 //  optimization not for release 0.1.0
 void MATRIX7219::_writeZero()
 {
   digitalWrite(_dataPin, LOW);
-  for (uint8_t mask = 0x80; mask > 0; mask >>= 1) 
+  for (uint8_t mask = 0x80; mask > 0; mask >>= 1)
   {
     digitalWrite(_clockPin, LOW);
     digitalWrite(_clockPin, HIGH);
   }
 }
 
+
+//  From CRC 0.3.3
+uint8_t MATRIX7219::_reverse8(uint8_t in)
+{
+  uint8_t x = in;
+  x = (((x & 0xAA) >> 1) | ((x & 0x55) << 1));
+  x = (((x & 0xCC) >> 2) | ((x & 0x33) << 2));
+  x =          ((x >> 4) | (x << 4));
+  return x;
+}
 
 //  -- END OF FILE --
 
