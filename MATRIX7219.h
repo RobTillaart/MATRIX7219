@@ -33,8 +33,10 @@ public:
 
   void     setInvert(bool invert);
   bool     getInvert();
-  void     setReverse(bool invert);
+  void     setReverse(bool reverse);
   bool     getReverse();
+  void     setSwap(bool swap);
+  bool     getSwap();
 
 private:
 
@@ -49,6 +51,7 @@ private:
 
   bool     _invert = false;
   bool     _reverse = false;
+  bool     _swap = false;
 };
 
 

@@ -15,11 +15,12 @@ Arduino Library for 8x8 LED MATRIX MAX7219.
 
 This library provides an easy access to 8x8 MATRIX boards.
 
-- no buffering
+- Buffering version => 8 bytes per Matrix.
+- Single matrix version (faster)
 - 
 
 
-#### related
+#### Related
 
 
 
@@ -45,7 +46,7 @@ Convenience function.
 - **void setRow(uint8_t row, uint8_t value, uint8_t matrix)** set a value to a certain row of a certain matrix.
 
 
-#### Invert and reverse
+#### Invert, reverse and swap.
 
 For adapting the layout if needed.
 
@@ -53,6 +54,8 @@ For adapting the layout if needed.
 - **bool getInvert()** get current setting.
 - **void setReverse(bool rev)** reverse the output. Default = false.
 - **bool getReverse()** get current setting.
+- **void setSwap(bool swap)** swaps row n with (8-n).
+- **bool getSwap()** get current setting.
 
 
 ## Performance 

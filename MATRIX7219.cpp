@@ -110,6 +110,7 @@ void MATRIX7219::setRow(uint8_t row, uint8_t value, uint8_t matrix)
     _write(0);
   }
 
+  if (_swap) row = 9 - row;
   _write(row);
   if (_invert)  value = 255 - value;
   if (_reverse) value = _reverse8(value);
@@ -147,6 +148,17 @@ bool MATRIX7219::getReverse()
   return _reverse;
 }
 
+
+void MATRIX7219::setSwap(bool swap)
+{
+  _swap = swap;
+}
+
+
+bool MATRIX7219::getSwap()
+{
+  return _swap;
+}
 
 ///////////////////////////////////////////////////////
 //
