@@ -79,7 +79,9 @@ For adapting the layout if needed.
 
 ## Performance 
 
-Preliminary tests - MATRIX7219_performance.ino
+#### 0.1.0
+
+MATRIX7219_performance.ino with UNO 16 MHz
 
 |  version  |  function     |  time (us)  |  notes  |
 |:---------:|:-------------:|:-----------:|:--------|
@@ -89,6 +91,21 @@ Preliminary tests - MATRIX7219_performance.ino
 |   0.1.0   | setRow(255)   |    204      | setReverse has minimal influence
 |   0.1.0   | setRow(0)     |    200      |
 |   0.1.0   | setBrightness |    208      |
+
+#### 0.1.1
+
+Optimized registers for UNO  (for AVR from FastShiftOut).
+2.5 to 4.2 times faster.
+
+
+|  version  |  function     |  time (us)  |  notes  |
+|:---------:|:-------------:|:-----------:|:--------|
+|   0.1.1   | begin         |    196      |  2.5x
+|   0.1.1   | clear         |    368      |  4.2x
+|   0.1.1   | count         |    4        |  idem
+|   0.1.1   | setRow(255)   |    56       |  3.5x
+|   0.1.1   | setRow(0)     |    56       |  3.5x
+|   0.1.1   | setBrightness |    56       |  3.5x
 
 
 ## Future
@@ -103,8 +120,6 @@ Preliminary tests - MATRIX7219_performance.ino
 #### Should
 
 - test other platforms
-- performance testing
-  - increase.
 - add unit tests
 - create a derived class for a single 8x8 matrix.
   - if performance gain is enough?

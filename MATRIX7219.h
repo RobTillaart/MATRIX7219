@@ -46,6 +46,17 @@ private:
   void     _writeZero();         //  optimized  writing of all 0
   uint8_t  _reverse8(uint8_t in);
 
+
+#if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_MEGAAVR)
+
+  volatile uint8_t *_dataOutRegister;
+  uint8_t _dataOutBit;
+
+  volatile uint8_t *_clockRegister;
+  uint8_t _clockBit;
+
+#endif
+  
   uint8_t  _dataPin;
   uint8_t  _selectPin;
   uint8_t  _clockPin;
