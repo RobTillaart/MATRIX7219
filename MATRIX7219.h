@@ -62,9 +62,9 @@ private:
   uint8_t  _clockPin;
   uint8_t  _matrices;
 
-  bool     _invert = false;
+  bool     _invert  = false;
   bool     _reverse = false;
-  bool     _swap = false;
+  bool     _swap    = false;
 };
 
 

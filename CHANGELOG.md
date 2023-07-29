@@ -7,10 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## [0.1.1] - 2023-07-29
-- add writeZero()
+- update AVR performance (from FastShiftOut)
+- add **writeZero()** (generic improvement)
+- test performance ESP32
+- add clock example
 - update readme.md
 - update keywords.txt
-
 
 
 ## [0.1.0] - 2023-07-28

@@ -1,6 +1,6 @@
 
 IDE:    1.8.19
-Board:  UNO
+Board:  UNO (16 MHz)
 
 MATRIX7219_performance.ino
 MATRIX7219_LIB_VERSION: 0.1.1
@@ -12,6 +12,19 @@ COUNT:	4	1
   000:	56
 BRIGHT:	56
 
+-------------------------------------
+
+IDE:    1.8.19
+Board:  ESP32 (240 MHz)
+
+MATRIX7219_LIB_VERSION: 0.1.1
+
+BEGIN:	37
+CLEAR:	47
+COUNT:	2	1
+  255:	12
+  000:	8
+BRIGHT:	8
 
 
 
