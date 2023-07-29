@@ -1,0 +1,15 @@
+
+IDE:    1.8.19
+Board:  UNO
+
+MATRIX7219_performance.ino
+MATRIX7219_LIB_VERSION: 0.1.1
+
+BEGIN:	732
+CLEAR:	1348
+COUNT:	4	1
+  255:	200
+  000:	200
+BRIGHT:	196
+
+

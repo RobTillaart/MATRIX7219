@@ -110,7 +110,6 @@ Preliminary tests - MATRIX7219_performance.ino
   - if performance gain is enough?
 - create a derived class with a buffer
   - goal is to have **setPixel(x,y)** and **clearPixel(x,y)**
-- reverse from CRC for real reverse
 
 
 #### Could

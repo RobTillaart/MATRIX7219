@@ -1,7 +1,7 @@
 //
 //    FILE: MATRIX7219.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.0
+// VERSION: 0.1.1
 //    DATE: 2023-07-28
 // PURPOSE: Arduino Library for 8x8 LED MATRIX MAX7219
 //     URL: https://github.com/RobTillaart/MATRIX7219
@@ -52,7 +52,7 @@ void MATRIX7219::begin()
   {
     digitalWrite(_selectPin, LOW);
     _write(MATRIX7219_DECODE_MODE);
-    _write(0x00);                       //  No decode for digits 7–0
+    _writeZero();                       //  No decode for digits 7–0
     digitalWrite(_selectPin, HIGH);
   }
   for (int m = 0; m < _matrices; m++)
@@ -66,7 +66,7 @@ void MATRIX7219::begin()
   {
     digitalWrite(_selectPin, LOW);
     _write(MATRIX7219_DISPLAY_TEST);
-    _write(0x00);                       //  normal mode
+    _writeZero();                       //  normal mode
     digitalWrite(_selectPin, HIGH);
   }
 }
@@ -92,7 +92,7 @@ void MATRIX7219::displayOff()
   for (int m = 0; m < _matrices; m++)
   {
     _write(MATRIX7219_SHUT_DOWN);
-    _write(0x00);
+    _writeZero();
   }
   digitalWrite(_selectPin, HIGH);
 }
@@ -117,7 +117,7 @@ void MATRIX7219::displayTest(bool on)
   {
     _write(MATRIX7219_DISPLAY_TEST);
     if (on) _write(0x01);
-    else _write(0x00);
+    else _writeZero();
   }
   digitalWrite(_selectPin, HIGH);
 }
@@ -131,7 +131,7 @@ void MATRIX7219::clear()
     for (int m = 0; m < _matrices; m++)
     {
       _write(row);
-      _write(0);
+      _writeZero();
     }
     digitalWrite(_selectPin, HIGH);
   }
@@ -143,8 +143,8 @@ void MATRIX7219::setRow(uint8_t row, uint8_t value, uint8_t matrix)
   digitalWrite(_selectPin, LOW);
   for (int m = _matrices; m > matrix; m--)
   {
-    _write(0);
-    _write(0);
+    _writeZero();
+    _writeZero();
   }
 
   if (_swap) row = 9 - row;
@@ -155,8 +155,8 @@ void MATRIX7219::setRow(uint8_t row, uint8_t value, uint8_t matrix)
 
   for (int m = matrix-1; m > 0; m--)
   {
-    _write(0);
-    _write(0);
+    _writeZero();
+    _writeZero();
   }
   digitalWrite(_selectPin, HIGH);
 }
@@ -208,23 +208,26 @@ bool MATRIX7219::getSwap()
 //
 void MATRIX7219::_write(uint8_t b)
 {
+  uint8_t clk = _clockPin;
+  uint8_t dat = _dataPin;
   for (uint8_t mask = 0x80; mask > 0; mask >>= 1)
   {
-    digitalWrite(_clockPin, LOW);
-    digitalWrite(_dataPin, (b & mask) > 0);
-    digitalWrite(_clockPin, HIGH);
+    digitalWrite(clk, LOW);
+    digitalWrite(dat, (b & mask) > 0);
+    digitalWrite(clk, HIGH);
   }
 }
 
 
-//  optimization not for release 0.1.0
+//  optimization
 void MATRIX7219::_writeZero()
 {
+  uint8_t clk = _clockPin;
   digitalWrite(_dataPin, LOW);
   for (uint8_t mask = 0x80; mask > 0; mask >>= 1)
   {
-    digitalWrite(_clockPin, LOW);
-    digitalWrite(_clockPin, HIGH);
+    digitalWrite(clk, LOW);
+    digitalWrite(clk, HIGH);
   }
 }
 
