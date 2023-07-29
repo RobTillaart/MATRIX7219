@@ -23,8 +23,11 @@ public:
   void     begin();
 
 
-  //  bn = 0..15
-  void     setBrightness(uint8_t bn);
+  //  bright = 0..15
+  void     setBrightness(uint8_t bright = 2);
+  void     displayOff();
+  void     displayOn();
+  void     displayTest(bool on = false);
   void     clear();
 
   //  row   = 1..8

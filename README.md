@@ -8,21 +8,31 @@
 
 # MATRIX7219
 
-Arduino Library for 8x8 LED MATRIX MAX7219.
+Arduino Library for controlling one or more 8x8 LED MATRIX with a MAX7219.
 
 
 ## Description
 
-This library provides an easy access to 8x8 MATRIX boards.
+This experimental library provides an easy control to 8x8 MATRIX boards.
+It is pretty minimalistic for now as the user still has to do bit math 
+to get the right lights on as one can only set 8 LEDS at a time.
 
-- Buffering version => 8 bytes per Matrix.
-- Single matrix version (faster)
-- 
+For the future two (derived) classes are planned: 
+- a class that is optimized to use for a single 8x8 matrix.
+- a class that buffers the state of the LEDS, allowing more functionality.
+
+
+#### Tests
+
+It is tested with an UNO and a single 8x8 matrix and a 4x 8x8 matrix-chain.
+During tests it became clear that the orientation of the matrices I used, 
+seen from the IN connector was different. These insights lead to the 
+implementation of the **inverse, reverse** and **swap** functions.
 
 
 #### Related
 
-
+- TODO
 
 
 #### Tested
@@ -41,7 +51,16 @@ Constructor, initializes IO pins and the number of 8x8 matrices on same pins.
 - **void begin()** resets the internals of the connected device.
 - **uint8_t  getMatrixCount()** returns number of matrices set in constructor.
 Convenience function.
-- **void setBrightness(uint8_t bn)** set brightness bn = 0..15 for all matrices.
+- **void setBrightness(uint8_t bright = 2)** set bright = 0..15 for all matrices. 
+Default is a relative low intensity.
+- **void displayOff()** switches on low power mode == all LEDs off.
+Leaves all registers the same. 
+Can be used to blink the display, get attention.
+- **void displayOn()** switches display on again.  
+- **void displayTest(bool on = false)** sets all LEDs on full brightness.
+Used to verify all LEDS still work. 
+Or to implement a flashy alarm.
+Default value is false ==> normal mode.
 - **void clear()** clear all matrices.
 - **void setRow(uint8_t row, uint8_t value, uint8_t matrix)** set a value to a certain row of a certain matrix.
 
@@ -60,7 +79,7 @@ For adapting the layout if needed.
 
 ## Performance 
 
-Preliminary tests
+Preliminary tests - MATRIX7219_performance.ino
 
 |  version  |  function     |  time (us)  |  notes  |
 |:---------:|:-------------:|:-----------:|:--------|
@@ -77,7 +96,9 @@ Preliminary tests
 #### Must
 
 - improve documentation
-- get build-CI good.
+- Buffering version => 8 bytes per Matrix.
+- Single matrix version (faster)
+- 
 
 #### Should
 
@@ -85,6 +106,8 @@ Preliminary tests
 - performance testing
   - increase.
 - add unit tests
+- create a derived class for a single 8x8 matrix.
+  - if performance gain is enough?
 - create a derived class with a buffer
   - goal is to have **setPixel(x,y)** and **clearPixel(x,y)**
 - reverse from CRC for real reverse
@@ -95,7 +118,9 @@ Preliminary tests
 - examples
   - 8x8 as debugger (dump variables)
   - clock ? binary - other?
-
+- store last set brightness. 
+  - **uint8_t getBrightness()**
+  
 
 #### Wont
 

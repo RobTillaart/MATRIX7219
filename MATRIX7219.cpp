@@ -45,7 +45,7 @@ void MATRIX7219::begin()
   {
     digitalWrite(_selectPin, LOW);
     _write(MATRIX7219_SCAN_LIMIT);
-    _write(0x07);
+    _write(0x07);                       //  use bits 0..7
     digitalWrite(_selectPin, HIGH);
   }
   for (int m = 0; m < _matrices; m++)
@@ -59,7 +59,7 @@ void MATRIX7219::begin()
   {
     digitalWrite(_selectPin, LOW);
     _write(MATRIX7219_SHUT_DOWN);
-    _write(0x01);
+    _write(0x01);                       //  display on
     digitalWrite(_selectPin, HIGH);
   }
   for (int m = 0; m < _matrices; m++)
@@ -72,15 +72,52 @@ void MATRIX7219::begin()
 }
 
 
-void MATRIX7219::setBrightness(uint8_t bn)
+void MATRIX7219::setBrightness(uint8_t bright)
 {
-  if (bn > 15) bn = 15;
+  if (bright > 15) bright = 15;
 
   digitalWrite(_selectPin, LOW);
   for (int m = 0; m < _matrices; m++)
   {
     _write(MATRIX7219_BRIGHTNESS);
-    _write(bn);
+    _write(bright);
+  }
+  digitalWrite(_selectPin, HIGH);
+}
+
+
+void MATRIX7219::displayOff()
+{
+  digitalWrite(_selectPin, LOW);
+  for (int m = 0; m < _matrices; m++)
+  {
+    _write(MATRIX7219_SHUT_DOWN);
+    _write(0x00);
+  }
+  digitalWrite(_selectPin, HIGH);
+}
+
+
+void MATRIX7219::displayOn()
+{
+  digitalWrite(_selectPin, LOW);
+  for (int m = 0; m < _matrices; m++)
+  {
+    _write(MATRIX7219_SHUT_DOWN);
+    _write(0x01);
+  }
+  digitalWrite(_selectPin, HIGH);
+}
+
+
+void MATRIX7219::displayTest(bool on)
+{
+  digitalWrite(_selectPin, LOW);
+  for (int m = 0; m < _matrices; m++)
+  {
+    _write(MATRIX7219_DISPLAY_TEST);
+    if (on) _write(0x01);
+    else _write(0x00);
   }
   digitalWrite(_selectPin, HIGH);
 }
@@ -125,6 +162,10 @@ void MATRIX7219::setRow(uint8_t row, uint8_t value, uint8_t matrix)
 }
 
 
+///////////////////////////////////////////////////////
+//
+//  LAYOUT
+//
 void MATRIX7219::setInvert(bool invert)
 {
   _invert = invert;
@@ -159,6 +200,7 @@ bool MATRIX7219::getSwap()
 {
   return _swap;
 }
+
 
 ///////////////////////////////////////////////////////
 //
