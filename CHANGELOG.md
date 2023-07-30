@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - add **writeZero()** (generic improvement)
 - test performance ESP32
 - add clock example
+- add 8 queens example
 - update readme.md
 - update keywords.txt
 

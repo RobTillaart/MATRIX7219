@@ -92,6 +92,7 @@ MATRIX7219_performance.ino with UNO 16 MHz
 |   UNO   | setRow(0)     |     200     |
 |   UNO   | setBrightness |     208     |
 
+
 #### 0.1.1 UNO
 
 Optimized registers for UNO  (for AVR from FastShiftOut).
@@ -107,6 +108,7 @@ Optimized registers for UNO  (for AVR from FastShiftOut).
 |   UNO   | setRow(0)     |      56     |  3.5x
 |   UNO   | setBrightness |      56     |  3.5x
 
+
 #### 0.1.1 ESP32
 
 First test ESP32
@@ -119,6 +121,7 @@ First test ESP32
 |  ESP32  | setRow(255)   |      12     |
 |  ESP32  | setRow(0)     |       8     |
 |  ESP32  | setBrightness |       8     |
+
 
 ## Future
 
@@ -138,6 +141,7 @@ First test ESP32
   - 8x8 as debugger (dump variables)
 - add unit tests
   - need simulator / mock-up
+- defaults for invert, reverse, swap?  (false).
 
 #### Wont (unless requested)
 
