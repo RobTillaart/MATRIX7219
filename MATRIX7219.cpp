@@ -258,7 +258,7 @@ void MATRIX7219::_writeZero()
 
   uint8_t cbmask1  = _clockBit;
   uint8_t cbmask2  = ~_clockBit;
-  uint8_t outmask1 = _dataOutBit;
+  //  uint8_t outmask1 = _dataOutBit;
   uint8_t outmask2 = ~_dataOutBit;
   
   *_dataOutRegister &= outmask2;
